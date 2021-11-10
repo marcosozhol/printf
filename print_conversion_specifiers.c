@@ -70,7 +70,7 @@ int print_int(va_list arguments)
 		num = num / 10;
 		c++;
 	}
-	recursive_int(num);
+	recursive_int(num2);
 	return (c);
 }
 
@@ -89,5 +89,5 @@ void recursive_int(int n)
 	{
 		recursive_int(x / 10);
 	}
-	_putchar(x % 10 + '0');
+	_putchar((x % 10) + '0');
 }
