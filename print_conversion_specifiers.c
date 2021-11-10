@@ -14,8 +14,6 @@ int print_string(va_list arguments)
 
 	cadena = va_arg(arguments, char *);
 
-		/*if (cadena == NULL)*/
-			/*cadena = "null"*/
 	if (cadena != NULL)
 	{
 		while (cadena[i] != '\0')
@@ -53,21 +51,24 @@ int print_char(va_list arguments)
  */
 int print_int(va_list arguments)
 {
-	int num = va_arg(arguments, int);
-	int c = 0;
+	unsigned int num = 0;
+	int c = 1;
+	int num2 = 0;
 
-	if (num < 0)
+	num = va_arg(arguments, int);
+	num2 = num;
+
+	if (num2 < 0)
 	{
-		num = num * -1;
 		_putchar('-');
+		num2 = num2 * -1;
+		num = num2;
 		c += 1;
 	}
-	if (num > 9)
+	while (num > 9)
 	{
-		while (num > 9)
-		{
+		num = num / 10;
 		c++;
-		}
 	}
 	recursive_int(num);
 	return (c);
@@ -80,11 +81,13 @@ int print_int(va_list arguments)
 
 void recursive_int(int n)
 {
-	int x = n;
+	unsigned int x = 0;
+
+	x = n;
 
 	if (x / 10)
 	{
 		recursive_int(x / 10);
 	}
-	_putchar(x % 10);
+	_putchar(x % 10 + '0');
 }
