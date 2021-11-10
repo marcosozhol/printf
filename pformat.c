@@ -24,35 +24,25 @@ int pformat(const char *format, va_list arguments)
 		{NULL, NULL}
 	};
 
-	int size = sizeof(identifiers) / sizeof(con_sp) - 1;
+	int size = ((sizeof(identifiers)) / (sizeof(con_sp) - 1));
 
 	while (format && format[n])
 	{
-	elem = 0;
-	if (format[n] == '%' && format[n + 1])
-	{
-	while (elem < size)
-	{
-		if (format[n + 1] == *identifiers[elem].spec)
+		elem = 0;
+		if (format[n] == '%' && format[n + 1])
 		{
-			identifiers[elem].f(arguments);
-			length++;
-			break;
-		}
-		elem++;
-		/*else
-		{
-			_putchar(format[n]);
-			length++;
+			while (elem < size)
+			{
+				if (format[n + 1] == *identifiers[elem].spec)
+				{
+					identifiers[elem].f(arguments);
+					length++;
+					break;
+				}
+				elem++;
+			}
 			n++;
-			break;
 		}
-		n++, elem++;
-		break;
-	}*/
-	}
-	n++;
-	}
 		else
 		{
 			_putchar(format[n]);
