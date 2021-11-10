@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include <stddef.h>
 #include <string.h>
 #include "main.h"
@@ -13,31 +12,53 @@
 
 int pformat(const char *format, va_list arguments)
 {
-	int n = 0;
-	char ch = 0;
-	int i = 0;
+	unsigned int n = 0;
+	int elem = 0;
+	int length = 0;
+
 	con_sp identifiers[] = {
 		{"c", print_char},
 		{"s", print_string},
 		{"d", print_int},
-		{"i", print_int}
+		{"i", print_int},
+		{NULL, NULL}
 	};
 
+	int size = sizeof(identifiers) / sizeof(con_sp) - 1;
 
-	while (format[n])
+	while (format && format[n])
 	{
-		if (format[n] == '%')
+	elem = 0;
+	if (format[n] == '%' && format[n + 1])
+	{
+	while (elem < size)
+	{
+		if (format[n + 1] == *identifiers[elem].spec)
 		{
-			if (format[n + 1] == '\0')
-			{
-				return (-1);
-			}
-			if (format[n + 1] == *identifiers->spec)
-			{
-				ch = ch + identifiers[i].f(arguments);
-			}
+			identifiers[elem].f(arguments);
+			length++;
+			break;
+		}
+		elem++;
+		/*else
+		{
+			_putchar(format[n]);
+			length++;
+			n++;
+			break;
+		}
+		n++, elem++;
+		break;
+	}*/
+	}
+	n++;
+	}
+		else
+		{
+			_putchar(format[n]);
+			length++;
 		}
 		n++;
 	}
-	return (ch);
+	return (length);
 }
